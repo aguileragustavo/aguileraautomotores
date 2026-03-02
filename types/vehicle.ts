@@ -37,6 +37,7 @@ export interface VehicleFilters {
   combustible?: string
   soloDisponibles?: boolean
   exclusivo?: boolean
+  destacado?: boolean
 }
 
 export interface UsedVehicleForm {

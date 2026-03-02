@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 export default function AdminLayout({
   children,
@@ -9,12 +10,18 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
-    // Verificar autenticación en cada cambio de ruta
+    // No verificar autenticación en la página de login
+    if (pathname === '/admin/login') {
+      return
+    }
+
+    // Verificar autenticación en las demás páginas de admin
     const checkAuth = () => {
       const auth = localStorage.getItem('adminAuth')
-      if (!auth && window.location.pathname !== '/admin/login') {
+      if (!auth) {
         router.push('/admin/login')
       }
     }
@@ -33,7 +40,7 @@ export default function AdminLayout({
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [router])
+  }, [router, pathname])
 
   return <>{children}</>
 }

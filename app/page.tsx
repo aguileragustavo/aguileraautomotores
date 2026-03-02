@@ -5,11 +5,13 @@ import WhyChooseUs from '@/components/WhyChooseUs'
 import Testimonials from '@/components/Testimonials'
 import CallToAction from '@/components/CallToAction'
 import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton'
-import { getFeaturedVehicles } from '@/lib/vehicles'
+import ExclusiveVehicles from '@/components/ExclusiveVehicles'
+import { getVehicles } from '@/lib/vehicles'
 import Link from 'next/link'
 
 export default async function HomePage() {
-  const featuredVehicles = await getFeaturedVehicles()
+  const vehicles = await getVehicles({ destacado: true })
+  const featuredVehicles = vehicles.slice(0, 3)
 
   return (
     <main>
@@ -57,13 +59,16 @@ export default async function HomePage() {
           <div className="text-center">
             <Link
               href="/vehiculos"
-              className="inline-flex items-center gap-2 border-2 border-primary-gold text-primary-gold px-8 py-3 rounded-lg font-semibold hover:bg-primary-gold hover:text-primary-black transition-all"
+              className="inline-flex items-center gap-2 border-2 border-primary-gold text-primary-gold px-6 py-3 rounded-lg font-semibold hover:bg-primary-gold hover:text-primary-black transition-colors"
             >
               Ver todos los vehículos
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Exclusive Vehicles Section */}
+      <ExclusiveVehicles />
 
       <WhyChooseUs />
       

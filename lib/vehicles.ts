@@ -43,6 +43,9 @@ export async function getVehicles(filters?: VehicleFilters): Promise<VehicleWith
     if (filters.exclusivo) {
       query = query.eq('exclusivo', true)
     }
+    if (filters.destacado) {
+      query = query.eq('destacado', true)
+    }
   }
 
   const { data, error } = await query
