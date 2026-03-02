@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import VehicleSearch from '@/components/VehicleSearch'
 import VehicleCard from '@/components/VehicleCard'
-import VehicleFilters from '@/components/VehicleFilters'
+import VehicleFiltersWrapper from '@/components/VehicleFiltersWrapper'
 import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton'
 import { getVehicles, getVehicleBrands, getVehicleTypes } from '@/lib/vehicles'
 import type { VehicleFilters as VehicleFiltersType } from '@/types/vehicle'
@@ -74,9 +74,8 @@ export default async function VehiclesPage({ searchParams }: VehiclesPageProps) 
       <div className="py-8 bg-primary-graphite">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense fallback={<div>Cargando filtros...</div>}>
-            <VehicleFilters
-              filters={filters}
-              onFiltersChange={() => {}}
+            <VehicleFiltersWrapper
+              initialFilters={filters}
               brands={brands}
               types={types}
             />

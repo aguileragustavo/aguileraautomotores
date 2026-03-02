@@ -49,15 +49,48 @@ export default function NewVehiclePage() {
     setLoading(true)
 
     try {
-      // Aquí iría la lógica para guardar en Supabase
-      console.log('Saving vehicle:', formData)
+      console.log('Submitting vehicle:', formData)
       
-      // Simulación de guardado
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Crear FormData para enviar archivos y datos
+      const formDataToSend = new FormData()
       
-      router.push('/admin/dashboard')
+      // Agregar datos del vehículo
+      formDataToSend.append('marca', formData.marca)
+      formDataToSend.append('modelo', formData.modelo)
+      formDataToSend.append('año', formData.año.toString())
+      formDataToSend.append('kilometros', formData.kilometros.toString())
+      formDataToSend.append('precio', formData.precio.toString())
+      formDataToSend.append('combustible', formData.combustible)
+      formDataToSend.append('transmision', formData.transmision)
+      formDataToSend.append('tipo', formData.tipo)
+      formDataToSend.append('descripcion', formData.descripcion)
+      formDataToSend.append('estado', formData.estado)
+      formDataToSend.append('exclusivo', formData.exclusivo.toString())
+      formDataToSend.append('destacado', formData.destacado.toString())
+      
+      // Agregar imágenes
+      formData.imagenes.forEach((file, index) => {
+        formDataToSend.append(`image_${index}`, file)
+      })
+      
+      const response = await fetch('/api/admin/vehicles', {
+        method: 'POST',
+        body: formDataToSend
+      })
+
+      const result = await response.json()
+      
+      if (response.ok) {
+        console.log('Vehicle saved successfully:', result)
+        alert('¡Vehículo guardado exitosamente!')
+        router.push('/admin/dashboard')
+      } else {
+        console.error('Error saving vehicle:', result)
+        alert(`Error al guardar el vehículo: ${result.error}\n\nDetalles: ${result.details || 'Sin detalles adicionales'}\n\nCódigo: ${result.code || 'N/A'}`)
+      }
     } catch (error) {
       console.error('Error saving vehicle:', error)
+      alert(`Error al guardar el vehículo: ${error instanceof Error ? error.message : 'Error desconocido'}`)
     } finally {
       setLoading(false)
     }

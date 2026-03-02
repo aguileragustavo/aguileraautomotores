@@ -16,6 +16,7 @@ export async function getVehicles(filters?: VehicleFilters): Promise<VehicleWith
         url
       )
     `)
+    .eq('disponible', true)
     .order('created_at', { ascending: false })
 
   if (filters) {
@@ -45,6 +46,19 @@ export async function getVehicles(filters?: VehicleFilters): Promise<VehicleWith
     }
     if (filters.destacado) {
       query = query.eq('destacado', true)
+    }
+    // Si se especifica soloDisponibles en false, mostrar todos los estados
+    if (filters.soloDisponibles === false) {
+      query = supabase
+        .from('vehiculos')
+        .select(`
+          *,
+          vehiculo_imagenes (
+            id,
+            url
+          )
+        `)
+        .order('created_at', { ascending: false })
     }
   }
 
@@ -95,6 +109,33 @@ export async function getVehicleBySlug(slug: string): Promise<VehicleWithImages 
   }
 }
 
+export async function getAllVehicles(): Promise<VehicleWithImages[]> {
+  if (!isSupabaseConfigured || !supabase) {
+    return []
+  }
+
+  const { data, error } = await supabase
+    .from('vehiculos')
+    .select(`
+      *,
+      vehiculo_imagenes (
+        id,
+        url
+      )
+    `)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching all vehicles:', error)
+    return []
+  }
+
+  return data.map(vehicle => ({
+    ...vehicle,
+    imagenes: vehicle.vehiculo_imagenes || []
+  }))
+}
+
 export async function getExclusiveVehicles(): Promise<VehicleWithImages[]> {
   if (!isSupabaseConfigured || !supabase) {
     return []
@@ -110,7 +151,7 @@ export async function getExclusiveVehicles(): Promise<VehicleWithImages[]> {
       )
     `)
     .eq('exclusivo', true)
-    .eq('estado', 'disponible')
+    .eq('disponible', true)
     .order('created_at', { ascending: false })
     .limit(6)
 

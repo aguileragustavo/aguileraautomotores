@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+import FallbackImage from './FallbackImage'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface VehicleGalleryProps {
@@ -38,7 +38,7 @@ export default function VehicleGallery({ images, title }: VehicleGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div className="relative h-96 md:h-[500px] bg-primary-graphite rounded-lg overflow-hidden">
-        <Image
+        <FallbackImage
           src={images[currentIndex]}
           alt={`${title} - Imagen ${currentIndex + 1}`}
           fill
@@ -87,7 +87,7 @@ export default function VehicleGallery({ images, title }: VehicleGalleryProps) {
                   : 'border-transparent hover:border-gray-600'
               }`}
             >
-              <Image
+              <FallbackImage
                 src={image}
                 alt={`${title} - Miniatura ${index + 1}`}
                 fill

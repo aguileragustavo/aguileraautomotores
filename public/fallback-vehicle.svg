@@ -1,0 +1,39 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#1a1a1a"/>
+  
+  <!-- Vehicle silhouette (simplified pickup truck) -->
+  <g transform="translate(150, 200)">
+    <!-- Cabin -->
+    <rect x="50" y="50" width="150" height="100" fill="#2d2d2d" rx="5"/>
+    <!-- Roof rails -->
+    <rect x="45" y="45" width="160" height="8" fill="#1a1a1a"/>
+    <!-- Windshield -->
+    <rect x="60" y="60" width="60" height="70" fill="#3a3a3a" rx="3"/>
+    <!-- Side window -->
+    <rect x="130" y="60" width="50" height="50" fill="#3a3a3a" rx="3"/>
+    <!-- Truck bed -->
+    <rect x="200" y="80" width="200" height="70" fill="#2d2d2d" rx="5"/>
+    <!-- Wheel arches -->
+    <ellipse cx="100" cy="150" rx="40" ry="25" fill="#1a1a1a"/>
+    <ellipse cx="300" cy="150" rx="40" ry="25" fill="#1a1a1a"/>
+    <!-- Wheels -->
+    <circle cx="100" cy="150" r="30" fill="#0a0a0a"/>
+    <circle cx="100" cy="150" r="20" fill="#2d2d2d"/>
+    <circle cx="300" cy="150" r="30" fill="#0a0a0a"/>
+    <circle cx="300" cy="150" r="20" fill="#2d2d2d"/>
+    <!-- Grill detail -->
+    <rect x="20" y="90" width="30" height="40" fill="#1a1a1a" rx="2"/>
+    <!-- Headlights -->
+    <circle cx="15" cy="100" r="8" fill="#4a4a4a"/>
+    <circle cx="15" cy="120" r="8" fill="#4a4a4a"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="400" y="450" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="24">
+    Imagen no disponible
+  </text>
+  <text x="400" y="480" text-anchor="middle" fill="#888" font-family="Arial, sans-serif" font-size="16">
+    Vehículo
+  </text>
+</svg>

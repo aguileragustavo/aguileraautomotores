@@ -1,0 +1,25 @@
+# CONFIGURACIÓN DE VARIABLES DE ENTORNO EN VERCEL
+
+# Opción 1: Dashboard (Recomendado)
+# 1. Ve a: https://vercel.com/aguileragustavos-projects/concesionaria-app
+# 2. Settings → Environment Variables
+# 3. Agrega las siguientes variables:
+
+NEXT_PUBLIC_SUPABASE_URL=https://qyhjztsidlyeazsobmgz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_TKliFR9B7FoAbr3F-3CR4g_moBKCtIT
+NEXT_PUBLIC_WHATSAPP_NUMBER=5493434556677
+
+# Opción 2: Usando Vercel CLI
+# Ejecuta estos comandos en tu terminal:
+
+vercel env add NEXT_PUBLIC_SUPABASE_URL
+# Cuando te pida el valor, pega: https://qyhjztsidlyeazsobmgz.supabase.co
+
+vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
+# Cuando te pida el valor, pega: sb_publishable_TKliFR9B7FoAbr3F-3CR4g_moBKCtIT
+
+vercel env add NEXT_PUBLIC_WHATSAPP_NUMBER
+# Cuando te pida el valor, pega: 5493434556677
+
+# Después de configurar, redeploy:
+vercel --prod

@@ -40,9 +40,14 @@ export default function AdminDashboard() {
 
   const fetchVehicles = async () => {
     try {
-      const response = await fetch('/api/vehicles')
+      const response = await fetch('/api/admin/vehicles')
       if (response.ok) {
         const data = await response.json()
+        setVehicles(data)
+      } else {
+        // Fallback a getAllVehicles si no hay API
+        const { getAllVehicles } = await import('@/lib/vehicles')
+        const data = await getAllVehicles()
         setVehicles(data)
       }
     } catch (error) {

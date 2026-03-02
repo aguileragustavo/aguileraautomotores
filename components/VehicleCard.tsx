@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import FallbackImage from './FallbackImage'
 import Link from 'next/link'
 import { MessageCircle, Calendar, Gauge } from 'lucide-react'
 import { formatPrice, formatKilometers, generateVehicleSlug } from '@/lib/utils'
@@ -17,7 +17,7 @@ export default function VehicleCard({ vehicle }: VehicleCardProps) {
     <div className="bg-primary-graphite rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 group">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
-        <Image
+        <FallbackImage
           src={mainImage}
           alt={`${vehicle.marca} ${vehicle.modelo} ${vehicle.año}`}
           fill
