@@ -22,7 +22,16 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ['lucide-react']
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/cpanel',
+        destination: '/admin',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
