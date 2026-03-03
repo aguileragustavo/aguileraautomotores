@@ -19,9 +19,9 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const formData = await request.formData()
-    
+
     console.log('Received form data')
-    
+
     if (!supabase) {
       console.error('Supabase not configured')
       return NextResponse.json(
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
         { status: 500 }
       )
     }
-    
+
     // Extraer datos del formulario
     const vehicleData = {
       marca: formData.get('marca') as string,
@@ -42,13 +42,14 @@ export async function POST(request: Request) {
       tipo: formData.get('tipo') as string,
       descripcion: formData.get('descripcion') as string || '',
       disponible: formData.get('estado') === 'disponible',
+      estado: formData.get('estado') as string || 'disponible',
       exclusivo: formData.get('exclusivo') === 'true',
       destacado: formData.get('destacado') === 'true',
       ciudad: 'Concordia'
     }
-    
+
     console.log('Prepared vehicle data:', vehicleData)
-    
+
     // Insertar el vehículo primero
     const { data: vehicle, error: vehicleError } = await supabase
       .from('vehiculos')
@@ -59,8 +60,8 @@ export async function POST(request: Request) {
     if (vehicleError) {
       console.error('Supabase error creating vehicle:', vehicleError)
       return NextResponse.json(
-        { 
-          error: 'Error creating vehicle', 
+        {
+          error: 'Error creating vehicle',
           details: vehicleError.message,
           code: vehicleError.code
         },
@@ -95,16 +96,16 @@ export async function POST(request: Request) {
         console.log('Image URLs saved successfully')
       } catch (imageError) {
         console.error('Error processing images:', imageError)
-        
+
         // Si hay error con las imágenes, eliminar el vehículo creado
         await supabase
           .from('vehiculos')
           .delete()
           .eq('id', vehicle.id)
-        
+
         return NextResponse.json(
-          { 
-            error: 'Error uploading images', 
+          {
+            error: 'Error uploading images',
             details: imageError instanceof Error ? imageError.message : 'Unknown error'
           },
           { status: 500 }
@@ -116,11 +117,11 @@ export async function POST(request: Request) {
       ...vehicle,
       images: imageUrls
     }, { status: 201 })
-    
+
   } catch (error) {
     console.error('Error in POST /api/admin/vehicles:', error)
     return NextResponse.json(
-      { 
+      {
         error: 'Internal server error',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
